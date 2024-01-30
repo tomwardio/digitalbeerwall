@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Contributors - Digital Beer Wall
+{% endblock %}
+
+{% block body %}
+
+<table class="table table-striped">
+  <thead>
+    <th>#</th>
+    <th>Username</th>
+    <th>Beers Added</th>
+    <th>Unique Countries</th>
+  </thead>
+  <tbody>
+    {% set counter = 1 %}
+    {% set total = 0 %}
+    {% for contributor in contributors %}
+    <tr>
+      <td>{{counter}}</td>
+      <td><a href="{{ path('app_show_user', {'id' : contributor.id}) }}">{{contributor.username}}</a></td>
+      <td>{{contributor.numbeers}}</td>
+      <td>{{contributor.numcountries}}</td>
+    </tr>
+    {% set counter = counter + 1 %}
+    {% set total = total + contributor.numbeers%}
+    {% endfor %}
+    {% if contributors|length %}
+    <tr>
+      <td><b>TOTAL</b></td>
+      <td></td>
+      <td>{{total}}</td>
+      <td></td>
+    </tr>
+    {% endif %}
+  </tbody>
+</table>
+
+
+{% endblock %}

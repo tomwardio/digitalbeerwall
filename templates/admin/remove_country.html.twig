@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Remove Country - Digital Beer Wall
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        {{ form_start(form) }}
+        {{ form_row(form.code) }}
+        {{ form_row(form.reason) }}
+        <br>
+
+        <span class="float-end">
+          {{ form_widget(form.save) }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

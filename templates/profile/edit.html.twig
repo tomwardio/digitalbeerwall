@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Edit Profile - Digital Beer Wall
+{% endblock %}
+
+{% block body %}
+<div class="container w-80">
+  <div class="card">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img class="img-fluid" alt="Profile Picture" src="{{ asset('images/default_profile.jpg')}}">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          {{form_start(form)}}
+          {{form_widget(form)}}
+          <span class="float-end mt-3">
+            <input type="submit" class="btn btn-primary" value="Update" />
+          </span>
+          {{form_end(form)}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock body %}

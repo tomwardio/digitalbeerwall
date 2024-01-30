@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Stats - Digital Beer Wall
+{% endblock %}
+
+{% block body %}
+	<div id='chart' {{ stimulus_controller('stats', {'beersByDate': beersbydate|serialize('json')}) }}>
+
+  </div>
+{% endblock %}

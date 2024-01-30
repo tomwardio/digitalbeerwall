@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ name }} - Digital Beer Wall
+{% endblock %}
+
+{% block body %}
+
+<h1>{{ name }}</h1>
+<div id="freewall" class="free-wall" hidden {{ stimulus_controller('freewall') }}>
+  {% for item in beers %}
+  <div class="brick bg-body-tertiary">
+    <a href="{{path('app_show_beer', {'id':item.id}) }}">
+      <img src={{ path('app_show_beer_image', {'id' : item.id}) }} width="100%">
+    </a>
+    <div class="brick-info">
+      <div class="row">
+        <div class="col-9">
+          <a class="text-primary-emphasis" href="{{path('app_show_beer', {'id':item.id}) }}">
+            {{item.name}}
+          </a>
+          <br>
+          <a class="text-body text-decoration-none" href="{{path('app_show_country', {'country':item.country}) }}">
+            <small>{{ item.countryname }}</small>
+          </a>
+        </div>
+        <div class="col-3">
+          <small class="text-body">{{item.abv}}%</small>
+        </div>
+      </div>
+      <br>
+
+      <div class="row">
+        <div class="col-10 text-body">
+          <small>Added by:
+            <a class="text-decoration-none" href="{{ path('app_show_user', {'id' : item.user.id}) }}">
+              {{item.user.username}}
+            </a>
+          </small>
+          <br>
+          <small>Date Added: {{item.dateadded.format("d M Y")}}</small>
+        </div>
+        {% if item.isSignature %}
+        <div class="col-2">
+          <i class="bi bi-star-fill text-body"></i>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<div id="spinner"></div>
+{% endblock %}

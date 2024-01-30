@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+<script type="text/javascript">
+  function SetCookie(name, value) {
+    document.cookie = name + "=" + escape(value);
+  }
+</script>
+{% endblock %}
+
+{% block body %}
+
+{% if beers|length <= 0 %} <h3>
+  {% if app.request.get("name") %}
+  No beers found with name "<i>{{app.request.get("name")}}</i>"
+  {% else %}
+  No beers found
+  {% endif %}
+  </h3>
+  {% else %}
+  <div id="freewall" class="free-wall" hidden {{ stimulus_controller('freewall') }}>
+    {% for item in beers %}
+    <div class="brick bg-body-tertiary">
+      <a href="{{path('app_show_beer', {'id':item.id}) }}">
+        <img src={{ path('app_show_beer_image', {'id' : item.id}) }} width="100%">
+      </a>
+      <div class="brick-info">
+        <div class="row">
+          <div class="col-9">
+            <a class="text-primary-emphasis" href="{{path('app_show_beer', {'id':item.id}) }}">
+              {{item.name}}
+            </a>
+            <br>
+            <a class="text-body text-decoration-none" href="{{path('app_show_country', {'country':item.country}) }}">
+              <small>{{ item.countryname }}</small>
+            </a>
+          </div>
+          <div class="col-3">
+            <small class="text-body">{{item.abv}}%</small>
+          </div>
+        </div>
+        <br>
+
+        <div class="row">
+          <div class="col-10 text-body">
+            <small>Added by:
+              <a class="text-decoration-none" href="{{ path('app_show_user', {'id' : item.user.id}) }}">
+                {{item.user.username}}
+              </a>
+            </small>
+            <br>
+            <small>Date Added: {{item.dateadded.format("d M Y")}}</small>
+          </div>
+          {% if item.isSignature %}
+          <div class="col-2">
+            <i class="bi bi-star-fill text-body"></i>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <br>
+  <div id="pages" class="row" hidden>
+    <div class="col">
+      <nav>
+        <ul class="pagination">
+          <li class="page-item {{ (limit == 25) ? 'active' : '' }}">
+            <a class="page-link" href="?page={{page}}" onClick="SetCookie('limit',25)">25</a>
+          </li>
+          <li class="page-item {{ (limit == 50) ? 'active' : '' }}">
+            <a class="page-link" href="?page={{page}}" onClick="SetCookie('limit',50)">50</a>
+          </li>
+          <li class="page-item {{ (limit == 75) ? 'active' : '' }}">
+            <a class="page-link" href="?page={{page}}" onClick="SetCookie('limit',75)">75</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="col">
+      {% set numpages = (numbeers/limit)|round %}
+      {% if numpages > 0 %}
+      <nav>
+        <ul class="pagination float-end">
+
+          {% set numpages_to_show = min(5, numpages) %}
+          {% set start = max(page - 2, 1)%}
+          {% set end = min(page + 2, numpages)%}
+
+          {% if start != 1 %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{page - 1}}">&laquo;</a>
+          </li>
+          {% endif %}
+
+          {% for i in start..end %}
+          <li class="page-item {{ (i == page) ? 'active' : '' }}">
+            <a class="page-link" href="?page={{i}}">{{i}}</a>
+          </li>
+          {% endfor %}
+
+          {% if end != numpages %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{page + 1}}">&raquo;</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+      {% endif %}
+    </div>
+  </div>
+  <div id="spinner"></div>
+  </div>
+  {% endif %}
+
+  {% endblock %}

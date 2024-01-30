@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Edit Beer - Digital Beer Wall
+{% endblock %}
+
+{% block body %}
+
+	<div class="container p-2" {{stimulus_controller("image") }}>
+		<div class="card">
+			{{ form_start(form) }}
+			<div class="row g-0">
+				<div class="col-md-4">
+					<img class="img-fluid" id="beer_img" name="beer_img" src={{ path('app_show_beer_image', {'id' : beer.id} ) }}>
+					<div class="m-2">
+						<span class="btn btn-primary btn-file m-2">
+							<input type="file" id="form_image" accept="image/*">
+							Choose File
+						</input>
+					</span>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div class="card-body">
+					{{ form_row(form.imgdata) }}
+					{{ form_row(form.name) }}
+					{{ form_row(form.country) }}
+					{{ form_row(form.abv) }}
+					{{ form_row(form.issignature) }}
+
+					<span>
+						{{ form_widget(form.update) }}
+						<button id="delete_btn" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm_delete">
+							Delete
+						</button>
+					</span>
+          {{ form_end(form) }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirm_delete" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5">Confirm Delete</h4>
+			</div>
+			{{ form_start(deleteform) }}
+			<div class="modal-body">
+				Are you sure you want to delete?
+				{{ form_row(deleteform.deletedReason) }}
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
+				{{ form_row(deleteform.delete) }}
+			</div>
+			{{ form_end(deleteform) }}
+		</div>
+	</div>
+</div>{% endblock %}

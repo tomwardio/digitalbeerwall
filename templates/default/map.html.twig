@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Beer Map - Digital Beer Wall
+{% endblock %}
+
+{% block head %}
+	<link rel="stylesheet" href="{{ asset('vendor/leaflet/dist/leaflet.min.css') }}"/>
+	<style>
+		.map-info {
+			padding: 6px 8px;
+			box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+			border-radius: 5px;
+			background: var(--bs-light);
+		}
+
+		.legend {
+			line-height: 18px;
+		}
+
+		.legend i {
+			width: 18px;
+			height: 18px;
+			float: left;
+			margin-right: 8px;
+		}
+
+		.thumbnail {
+			width: 50px;
+			height: 50px;
+			overflow: hidden;
+			position: relative;
+		}
+
+		.thumbnail img {
+			position: absolute;
+			top: -9999px;
+			bottom: -9999px;
+			left: -9999px;
+			right: -9999px;
+			margin: auto;
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="nav-item" role="presentation">
+				<button class="nav-link active" id="map-tab" data-bs-toggle="tab" data-bs-target="#map" type="button" role="tab">
+					Map
+				</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="countries-tab" data-bs-toggle="tab" data-bs-target="#countries" type="button" role="tab">
+					Countries
+				</button>
+			</li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane fade show active" id="map" role="tabpanel">
+				<div id="map-div" style="height:80vh;"
+          {{stimulus_controller("map", {
+            'removedCountries': removed_countries|serialize('json', {groups: 'show_map'}),
+            'countries': countries|serialize('json'),
+            'countryNames': country_names|serialize('json'),
+            'signatures': signatures|serialize('json', {groups: 'show_map'}),
+            'countryTopo': asset("countries.topo.json"),
+            'mapboxToken': mapbox_token
+            })
+          }}>
+        </div>
+			</div>
+			<div class="tab-pane fade" id="countries" role="tabpanel">
+				<table class="table table-striped">
+					<thead>
+						<th>#</th>
+						<th>Country</th>
+						<th>Total Beers</th>
+					</thead>
+					<tbody>
+						{% set counter = 1 %}
+						{% set total = 0 %}
+						{% for country in countries %}
+							<tr>
+								<td>{{counter}}</td>
+								<td>
+									<a href="{{path('app_show_country', {'country':country.country}) }}">
+										{{ country_names[country.country] }}
+									</a>
+								</td>
+								<td>{{country.numbeers}}</td>
+							</tr>
+							{% set counter = counter + 1 %}
+							{% set total = total + country.numbeers %}
+						{% endfor %}
+						{% if countries|length >= 0 %}
+							<tr>
+								<td></td>
+								<td>
+									<b>TOTAL</b>
+								</td>
+								<td>{{total}}</td>
+							{% endif %}
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}
