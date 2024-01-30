@@ -1,0 +1,188 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+About - Digital Beer Wall
+{% endblock %}
+
+{% block head %}
+<style type="text/css">
+  .panel-title {
+    color: black;
+    display: block;
+  }
+</style>
+
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 id="overview"><a class="text-body" href="#overview">Overview</a></h1>
+      <p>
+        The digital incarnation of the sacred site. The original beer wall was located on Broomwood Road in South West
+        London, and quickly built a reputation in the local area as an important monument in honour of world lagers.
+        Dismantled in 2012, it has now been reborn online.
+      </p>
+      <p>
+        Under the stewardship of the four founding fathers, the Broomwood residents and honorary Beer Wall contributors
+        used their King's thirst, and penchant for organising bottled beers by continent, to assemble a comprehensive
+        collection of empties in recognition of their consumption.
+      </p>
+      <p>
+        Alas, with space limited, relocation impractical, and on the insistence of Wandsworth council, this historic
+        monument was decommissioned in 2012. Photos from the beer wall's prime are below; may they offer inspiration and
+        guidance in our onward quest, here, in the digital age.
+      </p>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <a href="{{ asset('original_beerwall_left.jpg') }}">
+        <img class="img-fluid" src="{{ asset('original_beerwall_left.jpg') }}" alt="Original Beer Wall left-side">
+      </a>
+    </div>
+    <div class="col">
+      <a href="{{ asset('original_beerwall_right.jpg') }}">
+        <img class="img-fluid" src="{{ asset('original_beerwall_right.jpg') }}" alt="Original Beer Wall right-side">
+      </a>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <h1 id="how_it_works"><a class="text-body" href="#how_it_works">How it works</a></h1>
+      <p>
+        The premise is simple. Tip a hitherto unlogged bottled beer, photograph it, and upload it to the digital beer
+        wall, providing the following information:
+      </p>
+      <ul>
+        <li><b>Name:</b> The beer's, not yours</li>
+        <li><b>Country of origin:</b> The origin, not bottling location, though these are likely to be the same in most
+          cases</li>
+        <li><b>ABV:</b> Alcohol by volume; the percentage on the bottle...</li>
+      </ul>
+      <p>
+        With beer, basic economic assumptions hold: more is better. The objective, as a group, and on an individual
+        basis, is to consume as many unique beers, from as many countries as possible.
+      </p>
+      <p>
+        Remember, the beer's name is used to identify duplicates at the point of upload, so try to be reasonable and get
+        it right. It may also be used by comrades (and competitors) to identify those beers still in need of sourcing
+        and draining so, again, try to get it right so that we can live in harmony.
+      </p>
+      <br>
+      <h2>The Map</h2>
+      <p>
+        The group target is to consume at least one qualifying beverage from every country on our planet. Of course,
+        some may be more challenging than others. Those requiring a working holiday with a home brew kit may have to be
+        done last.
+      </p>
+      <p>
+        In the meantime (no brewery based pun intended), the proportion of countries completed is presented via two
+        metrics: total countries, and beer drinking regions (BDRs). BDRs represent the realistic maximum country count
+        achievable without moonshine in a speakeasy. Where countries are considered to be non-BDRs, their excuses are
+        presented on the map page.
+      </p>
+      <br>
+      <h2>Signature Beers</h2>
+      <p>
+        Those thirsty enough to successfully source beers may notice that with each upload there is an opportunity to
+        mark the beer as a 'Signature'. This is not a terms and conditions tick box; it means something, treat it with
+        considered respect.
+      </p>
+      <p>
+        Each country can have one 'signature' beer. This honour should be assigned to the beer believed to be the most
+        popular, or most representative, or most readily associated beer in, of, or with the country in question.
+      </p>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <h1 id="rules"><a class="text-body" href="#rules">Rules</a></h1>
+      <p>
+        The rules are quite simple:
+      </p>
+      <ol>
+        <li>Each beer can only be logged once</li>
+        <li>Bottles only</li>
+        <li>Lagers only</li>
+        <li>The uploader must have drank it</il>
+      </ol>
+      <p>
+        The scope is limited to lager due to the extensive availability of unique ales; including them would not only
+        reduce the level of challenge, but would increase the level of drunkenness. The latter being particularly
+        problematic given that individual competitiveness has been known to encourage a sneaky midweek, pre 11am,
+        snifter or three.
+      </p>
+      <p>
+        Given the lack of clarity around the definition of lager, we have defined it to include:
+      </p>
+      <ul>
+        <li>Lager</li>
+        <li>Bottles stating 'lager' (including flavoured)</li>
+        <li>Pilsner</li>
+      </ul>
+      <p>
+        And to exclude:
+      </p>
+      <ul>
+        <li>Bitter, stout, porter - come on, these aren't even lager-like</li>
+        <li>Ale (pale or otherwise, and for the reason given above, see above)</li>
+        <li>Blonde beer (you will need a good excuse to nail a blonde)</li>
+        <li>Fruit beer</li>
+      </ul>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <h1 id="disputes"><a class="text-body" href="#disputes">Disputes &amp; discipline</a></h1>
+      <p>
+        Disputes happen from time to time and this is where the Beer Wall Council comes in. Or "BWC", as the founding
+        fathers prefer to be called.
+      </p>
+      <p>
+        While the rules are clear and designed to make beer drinking as pleasurable as possible; there are inevitably
+        some grey areas and times when conventional wisdom ought to be challenged. In such scenarios, the overarching
+        principle is that beers may be consumed and uploaded at a participant's own risk. Note that 'own risk' is in
+        reference to potential non-acceptance, as well as potential disciplinary action in extreme cases - covered in
+        more detail below.
+      </p>
+      <p>
+        Where an addition finds itself in an aforementioned grey area, the BWC will make a judgment and confirm if the
+        beer is acceptable or unacceptable, accompanied with clear rationale. Where desired, participants may be asked
+        to provide evidence to help guide this initial assessment.
+      </p>
+      <p>
+        In the case of the beer being deemed unacceptable the contributor may abide by the decision or raise an appeal.
+        Through the appeal process, the contributor will have 24 hours to present their case to the BWC for further
+        consideration. Upon expiry of this period the BWC will consider the case and reach a final non-appealable
+        decision. If the beer is ultimately deemed to be unacceptable it will be removed from the wall.
+      </p>
+      <br>
+      <h2>Discipline</h2>
+      <p>
+        You know the rules. If you don't, visit the 'Rules' page, and have a read. We are a tolerant and patient
+        community of beer over-enthusiasts, but ill discipline, a failure to follow the rules, and repeat offences could
+        lead to disciplinary action. Potential offences are wide ranging, and limited only by one's drunken or
+        mischievous imagination, but examples of behaviour which will not be looked on favourably include:
+      </p>
+      <ul>
+        <li>Intentional or persistent mislabelling of beer details</li>
+        <li>Persistent uploading of NQBs (non-qualifying brews)</li>
+        <li>Inappropriate photos</li>
+      </ul>
+      <p>
+        A three strike system will be enforced, with strikes distributed at the discretion of the BWC - and on
+        recommendation of beer wall contributors, as appropriate. Following three strikes, the ability to upload will be
+        suspended until a punishment, allocated by the BWC, is completed.
+      </p>
+      <p>
+        Punishments may include, but are not limited to: drinking a bottle of Carling. Yes, the signature beer of the
+        UK, no less.
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

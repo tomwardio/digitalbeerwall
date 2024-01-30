@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Add Beer - Digital Beer Wall
+{% endblock %}
+
+{% block body %}
+
+<div class="container" {{stimulus_controller("image") }}>
+  <div class="card">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img class="img-fluid m-2" id="beer_img" name="beer_img" src={{ asset('images/default_beer.png') }}>
+        <span class="btn btn-primary btn-file m-2">
+          <input type="file" id="form_image" accept="image/*">
+          Choose File
+          </input>
+        </span>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          {{ form_start(form) }}
+          {{ form_widget(form) }}
+          {{ form_end(form) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

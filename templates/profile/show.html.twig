@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Profile - Digital Beer Wall
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="card">
+    <div class="card-header text-center">
+      Profile
+    </div>
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img class="img-fluid" alt="Profile Picture" src="{{ asset('images/default_profile.jpg')}}">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <table class="table table-user-information">
+            <tbody>
+              <tr>
+                <td>Username:</td>
+                <td>{{user.username}}</td>
+              </tr>
+              <tr>
+                <td>Email:</td>
+                <td>{{user.email}}</td>
+              </tr>
+              <tr>
+                <td>Last Login:</td>
+                <td>{{user.lastlogin.format('d M Y')}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a href="{{ path('app_profile_edit') }}" data-original-title="Edit this user" class="btn btn-primary">
+        <i class="bi bi-pencil-square"></i>
+        Edit
+      </a>
+      <a href="{{ path('app_profile_reset') }}" data-original-title="Edit this user" class="btn btn-primary">
+        <i class="bi bi-lock-fill"></i>
+        Reset Password
+      </a>
+      <a href="{{ path('_logout_main') }}" data-original-title="Edit this user" class="btn btn-danger">
+        <i class="bi bi-box-arrow-right"></i>
+        Log out
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock body %}

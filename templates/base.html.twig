@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Digital Beer Wall{% endblock title %}</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="5OribfsNZhUmdpnSXqGDxcOy9vgpmJbokK-KbH-NorU" />
+
+  {% block stylesheets %}
+  {% endblock %}
+
+  {% block javascripts %}
+  {% block importmap %}{{ importmap('app') }}{% endblock %}
+  {% endblock %}
+
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+  <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+
+  {% block head %}{% endblock %}
+
+</head>
+
+<body>
+  <div class="container-fluid" {{ stimulus_controller('theme') }}>
+    <nav class="navbar navbar-expand-lg fixed-top bg-body">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('app_index')}}">
+          <img src="{{ asset('logo.png') }}" alt="" height="26" class="d-inline-block align-text-top">
+          Digital Beer Wall
+        </a>
+        <!--<a class="navbar-brand" href="#">Digital Beer Wall</a>-->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {% if is_granted("ROLE_CONTRIBUTOR") %}
+            <li class="nav-item">
+              <a class="nav-link {{ app.request.pathInfo == path('app_add_beer') ? " active" : "" }}"
+                href="{{ path('app_add_beer') }}">Add Beer</a>
+            </li>
+            {% endif %}
+
+            <li class="nav-item">
+              <a class="nav-link {{ app.request.pathInfo == path('app_map') ? " active" : "" }}"
+                href="{{ path('app_map') }}">Map</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ app.request.pathInfo == path('app_signatures') ? " active" : "" }}"
+                href="{{ path('app_signatures') }}">Signatures</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ app.request.pathInfo == path('app_contributors') ? " active" : "" }}"
+                href="{{ path('app_contributors') }}">Contributors</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ app.request.pathInfo == path('app_about') ? " active" : "" }}"
+                href="{{ path('app_about') }}">About</a>
+            </li>
+          </ul>
+
+          <form class="d-flex" role="search">
+            <div class="input-group">
+              <input class="form-control" placeholder="Search" name="name" value={{app.request.get("name")}}>
+              <button class="input-group-text" type="submit">
+                <i class="bi bi-search" aria-hidden="true"></i>
+              </button>
+            </div>
+          </form>
+          <ul class="navbar-nav me-right mb-2 mb-lg-0">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <li class="nav-item">
+              <a class="nav-link {{ app.request.pathInfo == path('app_profile') ? " active" : "" }}"
+                href="{{ path('app_profile') }}">Profile</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link {{ app.request.pathInfo == path('app_register') or app.request.pathInfo == path('app_login') ? "
+                active" : "" }}" href="{{ path('app_login') }}">Login</a>
+            </li>
+            {% endif %}
+            {% if is_granted("ROLE_ADMIN") %}
+            <li class="nav-item">
+              <a class="nav-link {{ (app.request.uri == url('app_admin')) ? " active" : "" }}"
+                href="{{ path('app_admin') }}">
+                Admin
+              </a>
+            </li>
+            {% endif %}
+            <li class="nav-item dropdown">
+              <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center"
+                id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static"
+                aria-label="Toggle theme (auto)">
+                <i id="theme-icon-active" class="bi bi-circle-half"></i>
+                <span class="d-lg-none ms-2" id="bd-theme-text">Theme</span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text">
+                <li>
+                  <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light"
+                    aria-pressed="false">
+                    <i class="bi bi-sun-fill"></i>
+                    Light
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark"
+                    aria-pressed="false">
+                    <i class="bi bi-moon-stars-fill"></i>
+                    Dark
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="dropdown-item d-flex align-items-center active"
+                    data-bs-theme-value="auto" aria-pressed="true">
+                    <i class="bi bi-circle-half"></i>
+                    Auto
+                  </button>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% block body %}{% endblock body %}
+  </div>
+
+</body>
+
+</html>

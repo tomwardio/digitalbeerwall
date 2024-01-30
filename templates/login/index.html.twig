@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Login - Digital Beer Wall
+{% endblock %}
+
+{% block body %}
+{% if error %}
+<div class="alert alert-danger" role="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
+<div class="container">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" href="{{ path('app_login') }}">Login</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ path('app_register') }}">Register</a>
+    </li>
+  </ul>
+  <div class="tab-content border-start border-end border-bottom">
+    <div class="tab-pane fade show active" role="tabpanel" tabindex="0">
+      <div class="container p-2">
+        <form action="{{ path('app_login') }}" method="post">
+          <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+          <div class="row mt-3">
+            <div class="input-group mb-3">
+              <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
+              <input type="text" id="username" class="form-control" name="_username" value="{{ last_username }}"
+                required="required" placeholder="Username" />
+            </div>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+              <input type="password" id="password" class="form-control" name="_password" required="required"
+                placeholder="Password" />
+            </div>
+          </div>
+
+          <div class="row mt-2 ms-2">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="remember_me" name="_remember_me" checked>
+              <label class="form-check-label">Remember me</label>
+            </div>
+          </div>
+
+          <div class="text-end">
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-box-arrow-in-right"></i>
+              Log in
+            </button>
+          </div>
+          <div class="row"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+{% endblock %}

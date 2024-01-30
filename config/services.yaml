@@ -1,0 +1,41 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    aws_s3_enabled: '%env(bool:AWS_S3_ENABLED)%'
+    aws_s3_bucket: '%env(AWS_S3_BUCKET)%'
+    google_recaptcha_enabled: '%env(bool:GOOGLE_RECAPTCHA_ENABLED)%'
+    google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
+    images_directory: '%kernel.project_dir%/public/uploads/images'
+    mapbox_token: '%env(MAPBOX_TOKEN)%'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    App\EventListener\LoginSuccessEventListener:
+        tags:
+            - name: kernel.event_subscriber
+              dispatcher: security.event_dispatcher.main
+
+    Aws\S3\S3Client:
+        arguments:
+             -
+                version: '2006-03-01'
+                region: '%env(AWS_S3_REGION)%'
+                credentials:
+                    key: '%env(AWS_S3_ACCESS_KEY)%'
+                    secret: '%env(AWS_S3_ACCESS_SECRET)%'

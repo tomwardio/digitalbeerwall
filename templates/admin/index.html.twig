@@ -1,0 +1,217 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Admin - Digital Beer Wall
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button"
+        role="tab">Users</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="deleted-tab" data-bs-toggle="tab" data-bs-target="#deleted" type="button"
+        role="tab">Deleted Beers</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="removed-countries-tab" data-bs-toggle="tab" data-bs-target="#removed_countries"
+        type="button" role="tab">Removed Countries</button>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="table-responsive tab-pane fade show active" id="users" role="tabpanel">
+      <table class="table table-striped">
+        <thead>
+          <th>#</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Verified</th>
+          <th>Locked</th>
+          <th>Admin</th>
+          <th>Contributor</th>
+          <th>Last Login</th>
+          <th>Edit</th>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <td>{{user.id}}</td>
+            <td>{{user.username|e}}</td>
+            <td>{{user.email}}</td>
+            <td>
+              {% if user.verified %}
+              <i class="bi bi-check-lg"></i>
+              {% else %}
+              <i class="bi bi-x-lg"></i>
+              {% endif %}
+            </td>
+            <td>
+              {% if user.locked %}
+              <i class="bi bi-check-lg"></i>
+              {% else %}
+              <i class="bi bi-x-lg"></i>
+              {% endif %}
+            </td>
+            <td>
+              {% if user.hasrole("ROLE_ADMIN", role_hierarchy) %}
+              <i class="bi bi-check-lg"></i>
+              {% else %}
+              <i class="bi bi-x-lg"></i>
+              {% endif %}
+            </td>
+            <td>
+              {% if user.hasrole("ROLE_CONTRIBUTOR", role_hierarchy) %}
+              <i class="bi bi-check-lg"></i>
+              {% else %}
+              <i class="bi bi-x-lg"></i>
+              {% endif %}
+            </td>
+            <td>
+              {% if user.lastlogin %}
+              {{user.lastlogin.format('d/m/Y')}}
+              {% else %}
+              NA
+              {% endif %}
+            </td>
+
+            <td>
+              <a href="{{ path('app_admin_edit_user', {'id' : user.id}) }}" data-original-title="Edit user"
+                type="button" class="btn btn-primary btn-sm">
+                Edit
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-responsive tab-pane fade" id="deleted" role="tabpanel">
+      <table class="table table-striped">
+        <thead>
+          <th>Name</th>
+          <th>Country</th>
+          <th>Added by</th>
+          <th>Date Added</th>
+          <th>Reason</th>
+        </thead>
+        <tbody>
+          {% for beer in deleted_beers %}
+          <tr>
+            <td><a href="{{ path('app_admin_deleted_beer', {'id' : beer.id}) }}">{{beer.name}}</a></td>
+            <td>{{ beer.countryname }}</td>
+            <td>{{beer.user.username}}</td>
+            <td>{{beer.dateadded.format("d/m/Y")}}</td>
+            <td>{{beer.deletedReason}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="table-responsive tab-pane fade" id="removed_countries" role="tabpanel">
+      <table class="table table-striped">
+        <thead>
+          <th>Country</th>
+          <th>Removed by</th>
+          <th>Reason</th>
+          <th>Edit</th>
+        </thead>
+        <tbody>
+          {% for country in removed_countries %}
+          <tr>
+            <td>{{ country.countryname }}</td>
+            <td>{{ country.removedby.username }}</td>
+            <td>{{ country.reason }}</td>
+            <td>
+              <a href="{{ path('app_admin_edit_removed_country', {'id' : country.code}) }}"
+                data-original-title="Edit Removed Country" data-toggle="tooltip" type="button"
+                class="btn btn-sm btn-primary">
+                Edit
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td>
+              <a href="{{ path('app_admin_remove_country') }}" type="button" class="btn btn-danger">
+                Add New Country
+              </a>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!--<div class="tab-pane fade show active" id="map" role="tabpanel">
+      <table class="table table-striped">
+        <thead>
+          <th>#</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Verified</th>
+          <th>Locked</th>
+          <th>Admin</th>
+          <th>Contributor</th>
+          <th>Last Login</th>
+          <th>Edit</th>
+        </thead>
+        <tbody>
+          {% for user in users %}
+            <tr>
+              <td>{{user.id}}</td>
+              <td>{{user.username|e}}</td>
+              <td>{{user.email}}</td>
+              <td>
+                {% if user.verified %}
+                  <i class="bi bi-check-lg"></i>
+                {% else %}
+                  <i class="bi bi-x-lg"></i>
+                {% endif %}
+              </td>
+              <td>
+                {% if user.locked %}
+                  <i class="bi bi-check-lg"></i>
+                {% else %}
+                  <i class="bi bi-x-lg"></i>
+                {% endif %}
+              </td>
+              <td>
+                {% if user.hasrole("ROLE_ADMIN", role_hierarchy) %}
+                  <i class="bi bi-check-lg"></i>
+                {% else %}
+                  <i class="bi bi-x-lg"></i>
+                {% endif %}
+              </td>
+              <td>
+                {% if user.hasrole("ROLE_CONTRIBUTOR", role_hierarchy) %}
+                    <i class="bi bi-check-lg"></i>
+                {% else %}
+                    <i class="bi bi-x-lg"></i>
+                {% endif %}
+              </td>
+              <td>
+                {% if user.lastlogin %}
+                  {{user.lastlogin.format('d M Y')}}
+                {% else %}
+                  NA
+                {% endif %}
+              </td>
+
+              <td>
+                <a href="{{ path('app_admin_edit_user', {'id' : user.id}) }}" data-original-title="Edit user" type="button" class="btn btn-primary">
+                  Edit
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>-->
+
+{% endblock %}
