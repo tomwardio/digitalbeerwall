@@ -5,11 +5,13 @@ namespace App\Entity;
 use App\Repository\BeerRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Intl\Countries;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BeerRepository::class)]
+#[UniqueEntity('name', message: 'Beer already exists.')]
 class Beer
 {
   #[ORM\Id]
@@ -21,7 +23,7 @@ class Beer
   #[ORM\ManyToOne]
   private User $user;
 
-  #[ORM\Column(length: 512)]
+  #[ORM\Column(length: 512, unique: true)]
   #[Assert\NotBlank]
   #[Groups(['show_map'])]
   private ?string $name = null;
