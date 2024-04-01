@@ -23,7 +23,7 @@ return [
         'version' => '3.2.2',
     ],
     '@hotwired/turbo' => [
-        'version' => '8.0.3',
+        'version' => '8.0.4',
     ],
     '@popperjs/core' => [
         'version' => '2.11.8',
@@ -73,7 +73,7 @@ return [
         'version' => '5.16.0',
     ],
     'highcharts' => [
-        'version' => '11.3.0',
+        'version' => '11.4.0',
     ],
     'bootstrap-icons/font/bootstrap-icons.min.css' => [
         'version' => '1.11.3',
