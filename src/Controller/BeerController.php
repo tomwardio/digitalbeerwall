@@ -115,10 +115,7 @@ class BeerController extends AbstractController
       return $this->redirect($this->generateUrl('app_index'));
     }
 
-    return $this->render(
-      'beer/add.html.twig',
-      ['form' => $form->createView()]
-    );
+    return $this->render('beer/add.html.twig', ['form' => $form]);
   }
 
   #[Route('/beer/{id}', name: 'app_show_beer', requirements: ['id' => '\d+'])]
@@ -212,8 +209,8 @@ class BeerController extends AbstractController
     }
 
     return $this->render('beer/edit.html.twig', [
-      'form' => $form->createView(),
-      'deleteform' => $deleteForm->createView(),
+      'form' => $form,
+      'deleteform' => $deleteForm,
       'beer' => $beer,
     ]);
   }

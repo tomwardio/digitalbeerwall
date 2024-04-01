@@ -103,8 +103,7 @@ class AdminController extends AbstractController
       ));
     }
     return $this->render('admin/user.html.twig', [
-      'user' => $user,
-      'form' => $form->createView()
+      'user' => $user, 'form' => $form
     ]);
   }
 
@@ -159,7 +158,7 @@ class AdminController extends AbstractController
     }
 
     return $this->render('admin/deleted_beer.html.twig', array(
-      "form" => $form->createView(),
+      "form" => $form,
       "beer" => $beer,
     ));
   }
@@ -190,7 +189,7 @@ class AdminController extends AbstractController
     }
 
     return $this->render('admin/remove_country.html.twig', [
-      'form' => $form->createView()
+      'form' => $form
     ]);
   }
 
@@ -232,7 +231,7 @@ class AdminController extends AbstractController
     }
 
     return $this->render('admin/country.html.twig', array(
-      "form" => $form->createView()
+      "form" => $form
     ));
   }
 }

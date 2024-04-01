@@ -87,7 +87,7 @@ class RegistrationController extends AbstractController
     }
 
     return $this->render('registration/register.html.twig', [
-      'form' => $form->createView(),
+      'form' => $form,
       'recaptcha_enabled' => $this->getParameter('google_recaptcha_enabled'),
       'recaptcha_site_key' => $this->getParameter('google_recaptcha_site_key')
     ], new Response(null, $form->isSubmitted() && !$form->isValid() ? 422 : 200));
