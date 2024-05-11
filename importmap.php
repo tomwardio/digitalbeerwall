@@ -73,7 +73,7 @@ return [
         'version' => '5.16.0',
     ],
     'highcharts' => [
-        'version' => '11.4.0',
+        'version' => '11.4.1',
     ],
     'bootstrap-icons/font/bootstrap-icons.min.css' => [
         'version' => '1.11.3',
