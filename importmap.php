@@ -23,7 +23,7 @@ return [
         'version' => '3.2.2',
     ],
     '@hotwired/turbo' => [
-        'version' => '8.0.4',
+        'version' => '8.0.5',
     ],
     '@popperjs/core' => [
         'version' => '2.11.8',
@@ -67,13 +67,13 @@ return [
         'type' => 'css',
     ],
     'chroma-js' => [
-        'version' => '2.4.2',
+        'version' => '3.1.1',
     ],
     'blueimp-load-image' => [
         'version' => '5.16.0',
     ],
     'highcharts' => [
-        'version' => '11.4.1',
+        'version' => '11.4.8',
     ],
     'bootstrap-icons/font/bootstrap-icons.min.css' => [
         'version' => '1.11.3',
