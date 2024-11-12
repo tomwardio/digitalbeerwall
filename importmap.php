@@ -23,7 +23,7 @@ return [
         'version' => '3.2.2',
     ],
     '@hotwired/turbo' => [
-        'version' => '8.0.5',
+        'version' => '8.0.12',
     ],
     '@popperjs/core' => [
         'version' => '2.11.8',
@@ -67,7 +67,7 @@ return [
         'type' => 'css',
     ],
     'chroma-js' => [
-        'version' => '3.1.1',
+        'version' => '3.1.2',
     ],
     'blueimp-load-image' => [
         'version' => '5.16.0',
